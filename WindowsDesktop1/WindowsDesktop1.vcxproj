@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NaturalMathInputFunc.cpp" />
+    <ClCompile Include="NaturalMathInputMain.cpp" />
     <ClCompile Include="WindowsDesktop1.cpp" />
     <ClCompile Include="WindowsDesktopFunc.cpp" />
     <ClCompile Include="WindowsDesktopGraphProc.cpp" />

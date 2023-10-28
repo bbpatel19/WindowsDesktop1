@@ -1,9 +1,11 @@
 #pragma once
 
-//#include <math.h>
+
 #include "WindowsDesktop1.h"
+//#include <stdio.h>
+//#include <math.h>
 
-
+//#include <time.h>
 
 
 // #defines
@@ -29,6 +31,7 @@
 	DEF_OPE(SIN, 		1, PRE_FIX),			\
 	DEF_OPE(COS, 		1, PRE_FIX),			\
 	DEF_OPE(TAN, 		1, PRE_FIX),			\
+	DEF_OPE(LN,			1, PRE_FIX),			\
 	DEF_OPE(FACTORIAL, 	1, POST_FIX),			\
 	DEF_OPE(DETERMINANT,4, PRE_FIX),			\
 };
@@ -89,13 +92,12 @@ struct Func {
 struct Func * compileFunc(int length, char * input, int time, int debug);
 // evaluates the function structure at the point x
 float evalFunct(struct Func * f1, float * x, int lengthVarial);
-float evalFunct(struct Func* f1, float x);
 
 //prints funct
-//void printFunct(struct recFunc * nestFunc);
+void printFunct(struct recFunc * nestFunc);
 struct recFunc *  findHeadFunct(struct recFunc * nestFunc);
 
 // frees all the data from compileFunc. please call this
 void freeFunc(struct Func * f1, int debug);
 // graphs in console
-//void graph(struct Func * f1);
+void graph(struct Func * f1);
