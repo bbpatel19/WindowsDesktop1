@@ -372,13 +372,6 @@ int setFuncInputNoPara(char * input, int length, struct Func * f1, int debug) { 
 
 				break;
 			}
-			case '\n': // is forced to walk back up the chain 
-				do {
-					prevOpe = hlpAssignLastOper(f1, currRela, paraIntense);
-					if (prevOpe < 0) break;
-					if (POS_OPER(f1->nestFunc[prevOpe].operation) == POST_FIX) continue;
-				} while (hlpAssignFunc(f1, prevOpe, &readInp, debug));
-				break;
 			case '.':
 				decimalHit = 1;
 				break;
@@ -404,6 +397,11 @@ int setFuncInputNoPara(char * input, int length, struct Func * f1, int debug) { 
                 break;
 		}
 	}
+	do {
+		prevOpe = hlpAssignLastOper(f1, currRela, paraIntense);
+		if (prevOpe < 0) break;
+		if (POS_OPER(f1->nestFunc[prevOpe].operation) == POST_FIX) continue;
+	} while (hlpAssignFunc(f1, prevOpe, &readInp, debug));
     return 1;
 }
 
@@ -450,6 +448,13 @@ float evalFunct(struct Func * f1, float * x, int lengthVarial) {
 		for (int i = 0; i < length; i++) {
 			f1->vars[i] = x[i];
 		}
+	}
+	return FunctToFloat(findHeadFunct(f1->nestFunc));
+}
+
+float evalFunct(struct Func* f1, float x) {
+	if (f1->lengthVars != 0) {
+		f1->vars[0] = x;
 	}
 	return FunctToFloat(findHeadFunct(f1->nestFunc));
 }

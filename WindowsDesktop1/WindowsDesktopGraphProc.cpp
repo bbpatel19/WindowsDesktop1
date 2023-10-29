@@ -16,7 +16,7 @@ float custdxy(float x, float y) {
 	return x + y;
 }
 float custy(float y) {
-	return y + 1;
+	return y*y;
 }
 float custx(float x) {
 	return x;
@@ -67,21 +67,21 @@ LRESULT CALLBACK WndGraphProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		hWndPare = GetWindow(hWnd, GW_OWNER);
 		ShowWindow(hWndPare, SW_HIDE);
 
-		TCHAR equationWanted[] = _T("000000000000000000000000000000000000000");
+		TCHAR equationWanted[] = _T("                             ");
 		SendMessage(hWndPare, WM_GETTEXT, _tcslen(equationWanted), (LPARAM)equationWanted);
-		//int eqTEst = charToInt(equationWanted, _tcslen(equationWanted));
-		//MessageBox(hWnd, equationWanted, _T("Windows Desktop Application"), NULL);
+		int eqTEst = charToInt(equationWanted, _tcslen(equationWanted));
+		MessageBox(hWnd, equationWanted, _T("Windows Desktop Application"), NULL);
 
 		char equation[40] = { 0 };
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < min(40,_tcslen(equationWanted)); i++) {
 			equation[i] = equationWanted[i];
 		}
 
 		f1 = compileFunc(40, equation, 0, 0);
 
 		TCHAR test22[] = _T("                             ");
-		intToChar(evalFunct(f1, 0), test22, _tcslen(test22));
-		//MessageBox(hWnd, test22, _T("Windows Desktop Application"), NULL);
+		intToChar(evalFunct(f1, 2), test22, _tcslen(test22));
+		MessageBox(hWnd, test22, _T("Windows Desktop Application"), NULL);
 		
 		UpdateWindow(hWnd);
 		ShowWindow(hWnd, SW_SHOW);
@@ -111,7 +111,7 @@ LRESULT CALLBACK WndGraphProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			pen = CreatePen(PS_SOLID, 2, chroma(chh + 1));
 			SelectObject(hdcbuf, pen);
 			
-			//updateGraph(hdcbuf, &custx, &custy, gr);
+			updateGraph(hdcbuf, &custx, &custy, gr);
 			
 			pen = CreatePen(PS_SOLID, 0, RGB(255, 255, 255));
 			SelectObject(hdcbuf, pen);

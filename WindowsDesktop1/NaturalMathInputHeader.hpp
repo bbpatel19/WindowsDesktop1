@@ -92,6 +92,7 @@ struct Func {
 struct Func * compileFunc(int length, char * input, int time, int debug);
 // evaluates the function structure at the point x
 float evalFunct(struct Func * f1, float * x, int lengthVarial);
+float evalFunct(struct Func* f1, float x);
 
 //prints funct
 void printFunct(struct recFunc * nestFunc);
