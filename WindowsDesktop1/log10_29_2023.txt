@@ -1,0 +1,4 @@
+[printFunct 2.5](x c f)
+[printFunct 2.5](f c f)
+[printFunct 1]c(x)
+[printFunct 1](((x c f) c (f c x)) c f)

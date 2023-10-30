@@ -93,7 +93,7 @@ void pointGet(struct Func * f1, int debug) {
 		}
 	}
 	
-	printFunct(findHeadFunct(f1->nestFunc));
+	//printFunct(findHeadFunct(f1->nestFunc));
 	printf(" evaluated at (");
 	for (int i = 0; i < varial; i++) {
 		if (i) printf(", ");

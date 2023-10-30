@@ -87,6 +87,8 @@ int saveClick(char* saveFile, int clicked) {
 	return 0;
 }
 
+
+
 COLORREF chroma(int t) {
 	COLORREF rainbow[12] = {
 		RGB(255,   0,   0),

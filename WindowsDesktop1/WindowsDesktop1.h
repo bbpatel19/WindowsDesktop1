@@ -6,8 +6,10 @@
 #include <string.h> // standard string library
 #include <tchar.h> // fancy strings
 #include <corecrt_math.h> // math
-#include <iostream> // file io
-#include <fstream> // class to read
+
+#include <iostream> // io
+#include <fstream> // file io
+#include <chrono> // time
 
 //#include "MathInputLibrary.h" // hopefully a dll?
 

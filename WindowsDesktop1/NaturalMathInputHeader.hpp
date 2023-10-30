@@ -95,7 +95,7 @@ float evalFunct(struct Func * f1, float * x, int lengthVarial);
 float evalFunct(struct Func* f1, float x);
 
 //prints funct
-void printFunct(struct recFunc * nestFunc);
+void printFunct(struct recFunc * nestFunc, std::string logFile);
 struct recFunc *  findHeadFunct(struct recFunc * nestFunc);
 
 // frees all the data from compileFunc. please call this

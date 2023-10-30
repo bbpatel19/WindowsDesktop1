@@ -87,25 +87,45 @@ float nm_ln(float input) {
 }
 //------------------------------------------------------------------------------------------------------------------------------------
 // prints from the given function down the recursive chain
-void printFunct(struct recFunc * nestFunc) {
-	if (POS_OPER(nestFunc->operation) == PRE_FIX) printf("%c", isAcceptableOperation(nestFunc->operation));
-	printf("(");
+void printnlogFunct(struct recFunc * nestFunc, std::ofstream * logFile) {
+	//if (POS_OPER(nestFunc->operation) == PRE_FIX) printf("%c", isAcceptableOperation(nestFunc->operation));
+	if (POS_OPER(nestFunc->operation) == PRE_FIX) *logFile << "c";
+	*logFile << "(";
+	//printf("(");
 	for (int i = 0; i < INP_OPER(nestFunc->operation); i++) {
-		if (i) (POS_OPER(nestFunc->operation) != IN_FIX) ?  printf(", ") : printf(" %c ", isAcceptableOperation(nestFunc->operation));
+		//if (i) (POS_OPER(nestFunc->operation) != IN_FIX) ? printf(", ") : printf(" %c ", isAcceptableOperation(nestFunc->operation));
+		if (i) (POS_OPER(nestFunc->operation) != IN_FIX) ? *logFile << ", " : *logFile << " c " ;
 		switch(nestFunc->inps[i].type) {
 			case NUMBER:
-				printf("%f", nestFunc->inps[i].inp.num);
+				//printf("%f", nestFunc->inps[i].inp.num);
+				*logFile << "f";
 				break;
 			case VARIABLE:
-				printf("x"); // can fix logic later
+				//printf("x"); // can fix logic later
+				*logFile << "x";
 				break;
 			case FUNCTION: // recursion central
-				printFunct(nestFunc->inps[i].inp.func);
+				printnlogFunct(nestFunc->inps[i].inp.func, logFile);
 				break;
 		}
 	}
-	printf(")");
-	if (POS_OPER(nestFunc->operation) == POST_FIX) printf("%c", isAcceptableOperation(nestFunc->operation));
+	//printf(")");
+	*logFile << ")";
+	//if (POS_OPER(nestFunc->operation) == POST_FIX) printf("%c", isAcceptableOperation(nestFunc->operation));
+	if (POS_OPER(nestFunc->operation) == POST_FIX) *logFile << "c";
+}
+
+
+void printFunct(struct recFunc* nestFunc, std::string logFile) {
+	std::ofstream myfile;
+	myfile.open(logFile, std::ofstream::app);
+	myfile << "[printFunct " << 1 << "]";
+	if (myfile.is_open()) {
+		printnlogFunct(nestFunc, &myfile);
+	}
+	myfile << std::endl;
+	myfile.close();
+	return;
 }
 
 // calculates the entire chain from nestFunc down. (all float)
@@ -432,7 +452,7 @@ struct Func * compileFunc(int lengthFULL, char * inputFULL, int time, int debug)
 	if (debug) printf("\n------------------------\n");
 
 	if (debug) printf("You wanted to find \n");
-	if (debug) printFunct(findHeadFunct(f1->nestFunc));
+	//if (debug) printFunct(findHeadFunct(f1->nestFunc));
 	if (debug) printf("\n");
 
 	if (time) end_t = clock();
