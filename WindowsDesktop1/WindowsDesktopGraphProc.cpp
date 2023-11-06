@@ -34,6 +34,8 @@ float uppy;
 float lowy;
 
 TCHAR cursorxy[] = _T("(00000, 00000)");
+nmi_point points[10] = { {0,0},{1,1},{2,2},{3,3},{4,4},{5,5},{6,6},{7,7},{8,8},{9,9} };
+
 int chh;
 
 LRESULT CALLBACK WndGraphProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
@@ -107,7 +109,7 @@ LRESULT CALLBACK WndGraphProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			
 			if (f1 != NULL) {
-				updateNMIGraph(hdcbuf, f1, gr);
+				//updateNMIGraph(hdcbuf, f1, gr);
 			}
 			
 			pen = CreatePen(PS_SOLID, 2, chroma(chh + 1));
@@ -115,6 +117,10 @@ LRESULT CALLBACK WndGraphProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			
 			//updateGraph(hdcbuf, &custx, &custy, gr);
 			
+			
+
+			plotNMIpoint(hdcbuf, points, 10, 3, RGB(255, 0, 0), gr);
+
 			pen = CreatePen(PS_SOLID, 0, RGB(255, 255, 255));
 			SelectObject(hdcbuf, pen);
 		    

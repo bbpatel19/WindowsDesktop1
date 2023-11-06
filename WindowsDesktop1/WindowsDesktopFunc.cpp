@@ -276,3 +276,24 @@ int updateDFGraph(HDC hdc, float (*func)(float, float), float inix, float iniy, 
 	}
 	return 0;
 }
+
+int plotNMIpoint(HDC hdc, nmi_point points[], int length, int size, COLORREF col,  GraphProp gr) {
+
+	float xPix = 0;
+	float yPix = 0;
+	for (int i = 0; i < length; i++) {
+		xPix = toPixel(points[i].x, gr, true);
+		yPix = toPixel(points[i].y, gr, false);
+
+
+		for (int j = -size; j <= size; j++) {
+			for (int k = -size; k <= size; k++) {
+				if ((xPix + j) < gr.bounding->left || (xPix + j) > gr.bounding->right) continue;
+				if ((yPix + k) < gr.bounding->top || (yPix + k) > gr.bounding->bottom) continue;
+				SetPixel(hdc, xPix + j, yPix + k, col);
+			}
+		}
+	}
+
+	return 0;
+}

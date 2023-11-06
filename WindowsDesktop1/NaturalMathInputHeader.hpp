@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "WindowsDesktop1.h"
+#include "WindowsHfiles.hpp"
 //#include <stdio.h>
 //#include <math.h>
 
@@ -86,6 +86,11 @@ struct Func {
 	int lengthVars = -1;
 };
 
+struct nmi_point {
+	float x = 0;
+	float y = 0;
+};
+
 // function declarations
 
 // compiles the input string into a function structure
@@ -102,3 +107,9 @@ struct recFunc *  findHeadFunct(struct recFunc * nestFunc);
 void freeFunc(struct Func * f1, int debug);
 // graphs in console
 void graph(struct Func * f1);
+
+
+
+
+// test times
+std::string timeToDate(std::time_t input);

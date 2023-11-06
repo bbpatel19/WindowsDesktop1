@@ -1,19 +1,6 @@
 
 #pragma once
-#include <windows.h> // win32 api
-#include <windowsx.h> // standard windows controls 
-#include <stdlib.h> // standard library
-#include <string.h> // standard string library
-#include <tchar.h> // fancy strings
-#include <corecrt_math.h> // math
-
-#include <iostream> // io
-#include <fstream> // file io
-#include <chrono> // time
-
-//#include "MathInputLibrary.h" // hopefully a dll?
-
-#include "resource.h" // all the resource files
+#include "WindowsHfiles.hpp"
 #include "NaturalMathInputHeader.hpp" //nmi input
 
 #define windowGraph "WindowsDesktopGraph1"
@@ -50,3 +37,6 @@ int updateDFGraph(HDC hdc, float (*func)(float, float), float, float, GraphProp)
 float toPixel(float inp, GraphProp gr, bool isX);
 float toAxis(float inp, GraphProp gr, bool isX);
 COLORREF chroma(int);
+
+
+int plotNMIpoint(HDC hdc, nmi_point points[], int length, int size, COLORREF col, GraphProp gr);

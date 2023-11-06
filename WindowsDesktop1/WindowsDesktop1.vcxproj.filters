@@ -30,6 +30,9 @@
     <ClInclude Include="NaturalMathInputHeader.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="WindowsHfiles.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExplanatoryWindow.cpp">

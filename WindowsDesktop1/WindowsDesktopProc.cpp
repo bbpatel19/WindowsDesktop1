@@ -109,6 +109,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			clicked += clicksProc;
 			updateClick(clicked, hWnd);
 
+
+			//time_t now = std::time(0);
+			//std::wstring reslTime = timeToDate(&now);
+
+			//MessageBox(hWnd, reslTime.c_str(), _T("Windows Desktop Application"), NULL);
 			break;
 		}
 		case BTN_CLOSEEDIT:

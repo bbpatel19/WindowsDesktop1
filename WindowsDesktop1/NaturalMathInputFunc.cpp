@@ -1,6 +1,30 @@
 #include "NaturalMathInputHeader.hpp"
 
-
+std::string timeToDate(std::time_t input) {
+	struct tm timeInput;
+	localtime_s(&timeInput, &input);
+	int year = timeInput.tm_year + 1900; // XXXX
+	int month = timeInput.tm_mon + 1; // 01-12
+	int day = timeInput.tm_mday; // 01-31
+	int hour = timeInput.tm_hour; // 00-23
+	int min = timeInput.tm_min; // 00-59
+	int sec = timeInput.tm_sec; // 00-60
+	
+	std::string dateFrmt = {};
+	
+	dateFrmt.append(std::to_string(year));
+	dateFrmt.append(1u, '_');
+	dateFrmt.append(std::to_string(month));
+	dateFrmt.append(1u, '_');
+	dateFrmt.append(std::to_string(day));
+	dateFrmt.append(1u, '_');
+	dateFrmt.append(std::to_string(hour));
+	dateFrmt.append(1u, '_');
+	dateFrmt.append(std::to_string(min));
+	dateFrmt.append(1u, '_');
+	dateFrmt.append(std::to_string(sec));
+	return dateFrmt;
+}
 
 // what operations are accepted and have valid meanings
 char isAcceptableOperation(int input) {
@@ -89,16 +113,16 @@ float nm_ln(float input) {
 // prints from the given function down the recursive chain
 void printnlogFunct(struct recFunc * nestFunc, std::ofstream * logFile) {
 	//if (POS_OPER(nestFunc->operation) == PRE_FIX) printf("%c", isAcceptableOperation(nestFunc->operation));
-	if (POS_OPER(nestFunc->operation) == PRE_FIX) *logFile << "c";
+	if (POS_OPER(nestFunc->operation) == PRE_FIX) *logFile << isAcceptableOperation(nestFunc->operation);
 	*logFile << "(";
 	//printf("(");
 	for (int i = 0; i < INP_OPER(nestFunc->operation); i++) {
 		//if (i) (POS_OPER(nestFunc->operation) != IN_FIX) ? printf(", ") : printf(" %c ", isAcceptableOperation(nestFunc->operation));
-		if (i) (POS_OPER(nestFunc->operation) != IN_FIX) ? *logFile << ", " : *logFile << " c " ;
+		if (i) (POS_OPER(nestFunc->operation) != IN_FIX) ? *logFile << ", " : *logFile << ' ' << isAcceptableOperation(nestFunc->operation) << ' ';
 		switch(nestFunc->inps[i].type) {
 			case NUMBER:
 				//printf("%f", nestFunc->inps[i].inp.num);
-				*logFile << "f";
+				*logFile << nestFunc->inps[i].inp.num;
 				break;
 			case VARIABLE:
 				//printf("x"); // can fix logic later
@@ -112,14 +136,16 @@ void printnlogFunct(struct recFunc * nestFunc, std::ofstream * logFile) {
 	//printf(")");
 	*logFile << ")";
 	//if (POS_OPER(nestFunc->operation) == POST_FIX) printf("%c", isAcceptableOperation(nestFunc->operation));
-	if (POS_OPER(nestFunc->operation) == POST_FIX) *logFile << "c";
+	if (POS_OPER(nestFunc->operation) == POST_FIX) *logFile << isAcceptableOperation(nestFunc->operation);
 }
 
-
+// sets up log file for printing
 void printFunct(struct recFunc* nestFunc, std::string logFile) {
 	std::ofstream myfile;
 	myfile.open(logFile, std::ofstream::app);
-	myfile << "[printFunct " << 1 << "]";
+	std::string dateID = timeToDate(std::time(0));
+	myfile << "[" << dateID.c_str() << "]";
+	myfile << " PrintFunct: ";
 	if (myfile.is_open()) {
 		printnlogFunct(nestFunc, &myfile);
 	}
