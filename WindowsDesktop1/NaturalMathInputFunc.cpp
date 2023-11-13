@@ -255,7 +255,7 @@ void prepInputFunc(char * input, int lengthInput, struct Func * f1, int debug) {
 	int variables = 0;
 	for (int i = 0; i < lengthInput; i++) {
 		if (isAcceptableOperationChar(input[i])) operations++;
-		if (input[i] == 'x') variables++; // can come back to fix later
+		if (input[i] == 'x') variables = 1; // can come back to fix later
 	}
 
 	if (operations == 0) { 
@@ -457,7 +457,7 @@ int setFuncInputNoPara(char * input, int length, struct Func * f1, int debug) { 
 struct Func * compileFunc(int lengthFULL, char * inputFULL, int time, int debug) {
 
 	if (chkFormat(inputFULL, lengthFULL, debug)) {
-		return NULL;
+		//return NULL; //nah
 	}
 
 	if (debug) printf("------------------------\n");

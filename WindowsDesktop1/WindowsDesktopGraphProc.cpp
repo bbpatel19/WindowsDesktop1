@@ -34,7 +34,8 @@ float uppy;
 float lowy;
 
 TCHAR cursorxy[] = _T("(00000, 00000)");
-nmi_point points[10] = { {0,0},{1,1},{2,2},{3,3},{4,4},{5,5},{6,6},{7,7},{8,8},{9,9} };
+nmi_point points[21] = { 0 };
+
 
 int chh;
 
@@ -66,6 +67,11 @@ LRESULT CALLBACK WndGraphProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				&windowBounds
 		};
 
+		for (int i = 0; i < 21; i++) {
+			points[i].x = -5.0 + 1.0 / 2.0 * i;
+			points[i].y = 2.0 * sin(points[i].x) + cos(3 * points[i].x);
+		}
+
 		hWndPare = GetWindow(hWnd, GW_OWNER);
 		ShowWindow(hWndPare, SW_HIDE);
 
@@ -74,12 +80,12 @@ LRESULT CALLBACK WndGraphProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		//int eqTEst = charToInt(equationWanted, _tcslen(equationWanted));
 		//MessageBox(hWnd, equationWanted, _T("Windows Desktop Application"), NULL);
 
-		char equation[40] = { 0 };
-		for (int i = 0; i < min(40,_tcslen(equationWanted)); i++) {
+		char equation[30] = { 0 };
+		for (int i = 0; i < min(30,_tcslen(equationWanted)); i++) {
 			equation[i] = equationWanted[i];
 		}
 
-		f1 = compileFunc(40, equation, 0, 0);
+		f1 = compileFunc(30, equation, 0, 0);
 
 		printFunct(findHeadFunct(f1->nestFunc), logFile);
 
@@ -109,7 +115,7 @@ LRESULT CALLBACK WndGraphProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 
 			
 			if (f1 != NULL) {
-				//updateNMIGraph(hdcbuf, f1, gr);
+				updateNMIGraph(hdcbuf, f1, gr);
 			}
 			
 			pen = CreatePen(PS_SOLID, 2, chroma(chh + 1));
@@ -119,7 +125,7 @@ LRESULT CALLBACK WndGraphProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			
 			
 
-			plotNMIpoint(hdcbuf, points, 10, 3, RGB(255, 0, 0), gr);
+			plotNMIpoint(hdcbuf, points, 21, 2, RGB(255, 0, 0), gr);
 
 			pen = CreatePen(PS_SOLID, 0, RGB(255, 255, 255));
 			SelectObject(hdcbuf, pen);
